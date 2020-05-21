@@ -1,0 +1,31 @@
+<!-- option 2: using django's form -->
+<!-- {{ form.as_p }} -->
+
+{% for field in form %}
+    <div class="form-group">
+        {{ field.label_tag }}
+
+        {% if form.is_bound %}
+            {% if field.errors %}
+                <!-- need to add class is-invalid -->
+                {{ field }}
+                {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor%}
+            {% else %}
+                <!-- need to add class is-valid -->
+                {{ field }}
+            {% endif %}
+        {% else %}
+            {{ field }}
+        {% endif %}
+
+        {% if field.help_text %}
+            <small class="form-text text-muted">
+                {{ field.help_text }}
+            </small>
+        {% endif %}
+    </div>
+{% endfor %}
